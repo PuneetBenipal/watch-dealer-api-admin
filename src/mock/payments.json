@@ -1,0 +1,22 @@
+[
+    {
+        "id": "pay_1",
+        "companyId": "c2",
+        "companyName": "Chrono IO",
+        "amount": 50,
+        "currency": "GBP",
+        "method": "stripe",
+        "status": "succeeded",
+        "createdAt": "2025-08-02"
+    },
+    {
+        "id": "pay_2",
+        "companyId": "c1",
+        "companyName": "Acme Watches",
+        "amount": 95,
+        "currency": "GBP",
+        "method": "card",
+        "status": "pending",
+        "createdAt": "2025-08-05"
+    }
+]   

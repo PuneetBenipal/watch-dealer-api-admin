@@ -1,0 +1,24 @@
+[
+    {
+        "_id": "log1",
+        "ts": "2025-08-10T08:21:00Z",
+        "level": "info",
+        "actor": "alice@acme.com",
+        "companyId": "c1",
+        "companyName": "Acme Watches",
+        "action": "company.modules.toggle",
+        "target": "inventory",
+        "message": "Inventory enabled"
+    },
+    {
+        "_id": "log2",
+        "ts": "2025-08-10T09:10:00Z",
+        "level": "warn",
+        "actor": "system",
+        "companyId": "c2",
+        "companyName": "Chrono IO",
+        "action": "billing.renewal.failed",
+        "target": "invoice inv_1002",
+        "message": "Card declined"
+    }
+]

@@ -1,0 +1,631 @@
+.navbar-brand {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    padding: 16px 4px;
+}
+
+.logo-text {
+    background: linear-gradient(90deg, #b48c51 30%, #111 60%, #c9a063 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    margin-left: 10px;
+    font-family: "Playwrite AU NSW", cursive;
+    position: relative;
+}
+
+.logo-text::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 1.4rem;
+    }
+}
+
+
+.register-bg {
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    padding-bottom: 100px;
+}
+
+.register-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 2.2rem;
+    max-width: 410px;
+    width: 100%;
+    position: relative;
+    border: 1px solid #e0e0e0;
+}
+
+.register-title {
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    position: relative;
+    background: linear-gradient(90deg, #c9a063 30%, #814d00 60%, #b48c51 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.register-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    margin: 7px auto 0 auto;
+    border-radius: 2px;
+}
+
+.register-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.register-input {
+    border-radius: 5px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #111827;
+    padding: 0.5rem 0.95rem;
+    margin-bottom: 0.2rem;
+    width: 100%;
+}
+
+.register-error-text {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 0.6rem;
+    margin-left: 2px;
+    text-align: left;
+}
+
+.register-btn {
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.register-divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1.2rem 0 1rem 0;
+}
+
+.register-link {
+    color: #c9a063;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.register-error {
+    color: #ff6b6b;
+    background: #ffecec;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    font-size: 0.98rem;
+    border: 1px solid #ff6b6b;
+}
+
+.register-password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-55%);
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.register-password-group {
+    position: relative;
+}
+
+.register-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 480px) {
+    .register-card {
+        padding: 1.7rem 1.1rem;
+    }
+}
+
+body {
+    background: #f9fafb;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.login-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #f9fafb;
+    position: fixed;
+    width: 100%;
+    padding-bottom: 70px;
+}
+
+.login-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 2.2rem;
+    max-width: 410px;
+    width: 100%;
+    position: relative;
+    border: 1.5px solid #e5e7eb;
+}
+
+.login-title {
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    position: relative;
+    background: linear-gradient(90deg, #c9a063 30%, #814d00 60%, #b48c51 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    margin: 7px auto 0 auto;
+    border-radius: 2px;
+}
+
+.login-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+}
+
+.login-input-group {
+    position: relative;
+}
+
+.login-input {
+    border-radius: 5px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #111827;
+    padding: 0.5rem 0.95rem 0.5rem 2.5rem;
+    margin-bottom: 0.2rem;
+    width: 100%;
+}
+
+.login-input:focus {
+    border-color: #c9a063;
+    box-shadow: 0 0 0 3px rgba(201, 160, 99, 0.22);
+    outline: none;
+}
+
+.login-input-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #c9a063;
+    font-size: 1.15rem;
+}
+
+.login-password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 55%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.login-error-text {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.login-btn {
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.login-divider {
+    border-top: 1px solid #e5e7eb;
+    margin: 1.2rem 0 1rem 0;
+}
+
+.login-link {
+    color: #c9a063;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.login-error {
+    color: #b91c1c;
+    background: #fee2e2;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.9rem;
+    text-align: center;
+    font-size: 0.98rem;
+    border: 1.5px solid #fca5a5;
+}
+
+.login-forgot {
+    color: #6b7280;
+    font-size: 13px;
+    float: right;
+    margin-top: -1.7rem;
+    margin-bottom: 0.7rem;
+    text-decoration: none;
+}
+
+.ui-login-margin {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 1.7rem 1.1rem;
+    }
+}
+
+/* Profile.css - All styles for Profile.js, matching previous MUI UI/UX */
+
+.profile-container {
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.profile-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #232946;
+    margin-bottom: 32px;
+}
+
+.profile-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+.profile-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3a8bfd;
+    margin-bottom: 16px;
+}
+
+.profile-btn {
+    background: #3a8bfd;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.profile-btn:hover {
+    background: #2d6da3;
+}
+
+.profile-alert {
+    background: #ffebee;
+    color: #c62828;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dealer-register-bg {
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.dealer-register-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 2.2rem;
+    max-width: 410px;
+    width: 100%;
+    position: relative;
+    border: 1px solid #e0e0e0;
+}
+
+.dealer-register-title {
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    position: relative;
+    background: linear-gradient(90deg, #c9a063 30%, #814d00 60%, #b48c51 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dealer-register-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    margin: 7px auto 0 auto;
+    border-radius: 2px;
+}
+
+.register-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.register-input {
+    border-radius: 5px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #111827;
+    padding: 0.5rem 0.95rem;
+    margin-bottom: 0.2rem;
+    width: 100%;
+}
+
+.register-input:focus {
+    border-color: #c9a063;
+    box-shadow: 0 0 0 3px rgba(201, 160, 99, 0.22);
+    outline: none;
+}
+
+.register-error-text {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 0.6rem;
+    margin-left: 2px;
+    text-align: left;
+}
+
+.register-btn {
+    background: linear-gradient(90deg, #c9a063, #b48c51);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.register-divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1.2rem 0 1rem 0;
+}
+
+.register-link {
+    color: #c9a063;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.register-error {
+    color: #ff6b6b;
+    background: #ffecec;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    font-size: 0.98rem;
+    border: 1px solid #ff6b6b;
+}
+
+.register-password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-55%);
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.register-password-group {
+    position: relative;
+}
+
+.ui-register-margin {
+    margin-bottom: 15px;
+}
+
+.logo-upload-container {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #f9fafb;
+}
+
+.logo-upload-container:hover {
+    border-color: #c9a063;
+    background: #fef7f0;
+}
+
+.logo-upload-container.drag-over {
+    border-color: #c9a063;
+    background: #fef7f0;
+    transform: scale(1.02);
+}
+
+.logo-upload-icon {
+    font-size: 2rem;
+    color: #9ca3af;
+    margin-bottom: 10px;
+}
+
+.logo-upload-text {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.logo-upload-hint {
+    color: #9ca3af;
+    font-size: 0.8rem;
+}
+
+.logo-preview {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.logo-preview img {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+}
+
+.logo-remove-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.logo-remove-btn:hover {
+    background: #dc2626;
+}
+
+.ui-form-item label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+}
+
+.ui-reset-button {
+    background: linear-gradient(90deg, #c9a063, #b48c51) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px !important;
+    font-weight: 700 !important;
+    font-size: 1.15rem !important;
+    padding: 10px 0 !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+    height: auto !important;
+}
+
+.ui-url {
+    color: rgb(201, 160, 99);
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+    .dealer-register-card {
+        padding: 1.7rem 1.1rem;
+    }
+}

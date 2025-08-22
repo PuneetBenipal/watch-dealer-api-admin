@@ -1,0 +1,24 @@
+[
+    {
+        "_id": "inv_1001",
+        "number": "1001",
+        "companyId": "c1",
+        "companyName": "Acme Watches",
+        "amount": 95,
+        "currency": "GBP",
+        "status": "open",
+        "createdAt": "2025-08-01",
+        "dueDate": "2025-08-08"
+    },
+    {
+        "_id": "inv_1002",
+        "number": "1002",
+        "companyId": "c2",
+        "companyName": "Chrono IO",
+        "amount": 50,
+        "currency": "GBP",
+        "status": "paid",
+        "createdAt": "2025-08-02",
+        "dueDate": "2025-08-09"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "_id": "t1",
+        "companyId": "c1",
+        "companyName": "Acme Watches",
+        "subject": "Inventory not syncing",
+        "description": "New items not appearing after upload.",
+        "status": "open",
+        "priority": "high",
+        "assignee": null,
+        "updatedAt": "2025-08-11T07:10:00Z",
+        "createdAt": "2025-08-11T06:55:00Z"
+    },
+    {
+        "_id": "t2",
+        "companyId": "c2",
+        "companyName": "Chrono IO",
+        "subject": "Billing invoice issue",
+        "description": "Invoice shows past_due after payment.",
+        "status": "in_progress",
+        "priority": "normal",
+        "assignee": "ops@yourco.com",
+        "updatedAt": "2025-08-11T08:40:00Z",
+        "createdAt": "2025-08-11T08:00:00Z"
+    }
+]
