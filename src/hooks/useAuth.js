@@ -20,7 +20,7 @@ export const useAuth = () => {
         const token = localStorage.getItem('token');
         try {
             if (!token) throw new Error("Token is expered. Please login again.")
-            const res = await http.get('/api/auth/verify');
+            const res = await http.get('/auth/verify');
 
             updateState({ user: res.data.user });
         } catch (error) {

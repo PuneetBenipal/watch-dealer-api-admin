@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import { setAuthToken } from "../services/http";
 
 const initialState = {
-    jwtTokan: "",
+    jwtToken: "",
     user: null,
     loading: false,
 }
@@ -10,9 +10,8 @@ const initialState = {
 export const AuthCtx = createContext({});
 
 export function AuthProvider({ children }) {
-    // Mock logged-in superadmin by default (you can change this)
-    const [user, setUser] = useState({ email: "", name: "", role: "superadmin" });
-    const [token, setToken] = useState("jwt-token");
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
     const [state, setState] = useState(initialState)
 
@@ -31,4 +30,4 @@ export function AuthProvider({ children }) {
     return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
 }
 
-// export const useAuth = () => useContext(AuthCtx);
+export const useAuth = () => useContext(AuthCtx);
