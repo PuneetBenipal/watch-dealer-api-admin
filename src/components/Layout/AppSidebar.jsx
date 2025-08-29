@@ -10,7 +10,13 @@ import {
     SettingOutlined,
     AppstoreAddOutlined,
     TagOutlined,
-    FileTextOutlined
+    FileTextOutlined,
+    ExperimentOutlined,
+    RobotOutlined,
+    SafetyOutlined,
+    CodeOutlined,
+    GlobalOutlined,
+    BellOutlined
 } from "@ant-design/icons";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 
@@ -26,8 +32,16 @@ const navItems = [
     { key: "plancard", label: "Plan Cards", icon: <FileTextOutlined />, path: "/plancards" },
     { key: "discounts", label: "Discounts", icon: <TagOutlined />, path: "/discounts" },
     { key: "support", label: "Support", icon: <CustomerServiceOutlined />, path: "/support" },
+    { key: "logs", label: "Logs", icon: <AlertOutlined />, path: "/logs" },
     { key: "settings", label: "Settings", icon: <SettingOutlined />, path: "/settings" },
-    // { key: "logs", label: "Logs", icon: <AlertOutlined />, path: "/logs" },
+];
+
+const backOfficeItems = [
+    { key: "ai-services", label: "AI Services", icon: <RobotOutlined />, path: "/ai-services" },
+    { key: "feature-flags", label: "Feature Flags", icon: <ExperimentOutlined />, path: "/feature-flags" },
+    { key: "notifications", label: "Notifications", icon: <BellOutlined />, path: "/notifications" },
+    { key: "compliance", label: "Compliance", icon: <SafetyOutlined />, path: "/compliance" },
+    { key: "developer-tools", label: "Developer Tools", icon: <CodeOutlined />, path: "/developer-tools" },
 ];
 
 export default function AppSidebar({
@@ -42,7 +56,8 @@ export default function AppSidebar({
     const isDark = theme === "dark";
 
     const selectedKey = React.useMemo(() => {
-        const hit = navItems.find((n) => pathname === n.path || pathname.startsWith(n.path + "/"));
+        const allItems = [...navItems, ...backOfficeItems];
+        const hit = allItems.find((n) => pathname === n.path || pathname.startsWith(n.path + "/"));
         return [hit ? hit.key : "dashboard"];
     }, [pathname]);
 
@@ -52,7 +67,8 @@ export default function AppSidebar({
             theme={isDark ? "dark" : "light"}       // ← NEW
             selectedKeys={selectedKey}
             onClick={({ key }) => {
-                const item = navItems.find((n) => n.key === key);
+                const allItems = [...navItems, ...backOfficeItems];
+                const item = allItems.find((n) => n.key === key);
                 if (item) nav(item.path);
                 if (isMobile) onCloseDrawer?.();
             }}
@@ -60,9 +76,18 @@ export default function AppSidebar({
         >
             {navItems.map(item => (
                 <Menu.Item key={item.key} icon={item.icon}>
-                    <Link to={item.key}>{item.label}</Link>
+                    <Link to={item.path}>{item.label}</Link>
                 </Menu.Item>
             ))}
+            
+            <Menu.Divider />
+            <Menu.ItemGroup title={collapsed ? "" : "Back-Office Panel"}>
+                {backOfficeItems.map(item => (
+                    <Menu.Item key={item.key} icon={item.icon}>
+                        <Link to={item.path}>{item.label}</Link>
+                    </Menu.Item>
+                ))}
+            </Menu.ItemGroup>
         </Menu>
     );
 

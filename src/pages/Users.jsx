@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
     Table, Tag, Input, Space, Select, Button, Dropdown, Menu,
-    Popconfirm, message, Grid, Drawer, Form
+    Popconfirm, message, Grid, Drawer, Form, Modal, InputNumber
 } from "antd";
-import { MoreOutlined, FilterOutlined } from "@ant-design/icons";
+import { MoreOutlined, FilterOutlined, SettingOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import PageContainer from "../components/common/PageContainer";
 import {
@@ -24,6 +24,8 @@ export default function Users() {
     const [inviteOpen, setInviteOpen] = useState(false);
     const [drawer, setDrawer] = useState({ open: false, rec: null });
     const [filterOpen, setFilterOpen] = useState(false);
+    const [settingsModal, setSettingsModal] = useState({ open: false, user: null });
+    const [settingsForm] = Form.useForm();
     const screens = useBreakpoint();
     const isMobile = !screens.md;
 
@@ -47,6 +49,33 @@ export default function Users() {
     const suspend = (row) => dispatch(updateUser({ id: row._id || row.id, patch: { status: "suspended" } }));
     const reactivate = (row) => dispatch(updateUser({ id: row._id || row.id, patch: { status: "active" } }));
     const makeRole = (row, role) => dispatch(updateUser({ id: row._id || row.id, patch: { userKind: role } }));
+    
+    const openUserSettings = (user) => {
+        setSettingsModal({ open: true, user });
+        settingsForm.setFieldsValue({
+            maxApiCalls: user.settings?.maxApiCalls || 1000,
+            maxInventoryItems: user.settings?.maxInventoryItems || 500,
+            enableWhatsApp: user.settings?.enableWhatsApp !== false,
+            enableEscrow: user.settings?.enableEscrow !== false,
+            customPricing: user.settings?.customPricing || false,
+            discountPercentage: user.settings?.discountPercentage || 0
+        });
+    };
+
+    const saveUserSettings = async (values) => {
+        try {
+            const userId = settingsModal.user._id || settingsModal.user.id;
+            await dispatch(updateUser({ 
+                id: userId, 
+                patch: { settings: values }
+            }));
+            message.success('User settings updated successfully');
+            setSettingsModal({ open: false, user: null });
+            settingsForm.resetFields();
+        } catch (error) {
+            message.error('Failed to update user settings');
+        }
+    };
 
     const doImpersonate = async (row) => {
         const res = await dispatch(impersonateUser({ id: row._id || row.id }));
@@ -84,13 +113,15 @@ export default function Users() {
                 const loading = !!acting[id];
                 const menu = (
                     <Menu>
-                        {/* <Menu.Item onClick={() => openEdit(row)}>Edit</Menu.Item> */}
-
-                        {/* Role change (uncomment if you need)
-            <Menu.SubMenu title="Change Role">
-              <Menu.Item onClick={() => makeRole(row, "dealer")}>dealer</Menu.Item>
-              <Menu.Item onClick={() => makeRole(row, "agent")}>agent</Menu.Item>
-            </Menu.SubMenu> */}
+                        <Menu.Item onClick={() => openEdit(row)} icon={<SettingOutlined />}>
+                            Edit Profile
+                        </Menu.Item>
+                        <Menu.Item onClick={() => openUserSettings(row)} icon={<SettingOutlined />}>
+                            Override Settings
+                        </Menu.Item>
+                        <Menu.Item onClick={() => doImpersonate(row)} icon={<UserSwitchOutlined />}>
+                            Impersonate User
+                        </Menu.Item>
 
                         <Menu.Divider />
                         {row.status === "active" ? (
@@ -105,11 +136,6 @@ export default function Users() {
                             </Menu.Item>
                         )}
 
-                        {/* Impersonate / Reset (uncomment if needed)
-            <Menu.Divider />
-            <Menu.Item onClick={() => doImpersonate(row)}>Impersonate</Menu.Item>
-            <Menu.Item onClick={() => message.success("Password reset email sent (mock)")}>Send Reset Email</Menu.Item>
-            */}
 
                         <Menu.Divider />
                         <Menu.Item>
@@ -245,14 +271,82 @@ export default function Users() {
                 onCancel={() => setInviteOpen(false)}
                 onOk={doInvite}
             />
-{/* 
+
             <UserDrawer
                 visible={drawer.open}
                 onClose={() => setDrawer({ open: false, rec: null })}
                 record={drawer.rec}
                 onSave={saveEdit}
                 onDelete={removeUser}
-            /> */}
+            />
+
+            {/* User Settings Override Modal */}
+            <Modal
+                title={`Override Settings - ${settingsModal.user?.email || ''}`}
+                visible={settingsModal.open}
+                onCancel={() => {
+                    setSettingsModal({ open: false, user: null });
+                    settingsForm.resetFields();
+                }}
+                footer={null}
+                width={600}
+            >
+                <Form
+                    form={settingsForm}
+                    layout="vertical"
+                    onFinish={saveUserSettings}
+                >
+                    <Form.Item
+                        label="Max API Calls per Month"
+                        name="maxApiCalls"
+                        rules={[{ required: true, type: 'number', min: 0 }]}
+                    >
+                        <InputNumber style={{ width: '100%' }} min={0} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Max Inventory Items"
+                        name="maxInventoryItems"
+                        rules={[{ required: true, type: 'number', min: 0 }]}
+                    >
+                        <InputNumber style={{ width: '100%' }} min={0} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Custom Discount Percentage"
+                        name="discountPercentage"
+                        rules={[{ required: true, type: 'number', min: 0, max: 100 }]}
+                    >
+                        <InputNumber style={{ width: '100%' }} min={0} max={100} />
+                    </Form.Item>
+
+                    <Form.Item name="enableWhatsApp" valuePropName="checked">
+                        <input type="checkbox" /> Enable WhatsApp Module
+                    </Form.Item>
+
+                    <Form.Item name="enableEscrow" valuePropName="checked">
+                        <input type="checkbox" /> Enable Escrow Service
+                    </Form.Item>
+
+                    <Form.Item name="customPricing" valuePropName="checked">
+                        <input type="checkbox" /> Custom Pricing Enabled
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Space>
+                            <Button type="primary" htmlType="submit">
+                                Save Settings
+                            </Button>
+                            <Button onClick={() => {
+                                setSettingsModal({ open: false, user: null });
+                                settingsForm.resetFields();
+                            }}>
+                                Cancel
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Modal>
         </PageContainer>
     );
 }

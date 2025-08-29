@@ -14,6 +14,11 @@ import Settings from "./pages/Settings";
 import ModulesCMS from "./pages/ModulesCMS";
 import Discounts from './pages/Discounts';
 import PlanManager from "./pages/PlanCard";
+import AIServices from "./pages/AIServices";
+import FeatureFlags from "./pages/FeatureFlags";
+import Notifications from "./pages/Notifications";
+import Compliance from "./pages/Compliance";
+import DeveloperTools from "./pages/DeveloperTools";
 
 import Login from "./pages/Login";
 import NotFound404 from "./pages/404";
@@ -44,6 +49,11 @@ export default function App() {
                 <Route path="/discounts" element={<Discounts />} />
                 <Route path="/modules" element={<ModulesCMS />} />
                 <Route path="/plancards" element={<PlanManager />} />
+                <Route path="/ai-services" element={<AIServices />} />
+                <Route path="/feature-flags" element={<FeatureFlags />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/compliance" element={<Compliance />} />
+                <Route path="/developer-tools" element={<DeveloperTools />} />
 
               </Route>
             </Route>

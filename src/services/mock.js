@@ -125,43 +125,58 @@ function get(path, opts) {
 
     // METRICS (dashboard)
     if (path === "/superadmin/metrics") {
-        const range = (opts?.params?.range || "30d").toLowerCase();
-        const days = range === "7d" ? 7 : range === "90d" ? 90 : 30;
-
-        // KPIs
-        const kCompanies = companies.length;
-        const kUsersActive = users.filter(u => u.status === "active" || u.status === "online" || !u.status).length;
-        const now = new Date();
-        const since = new Date(now); since.setDate(now.getDate() - days);
-        const invWindow = invoices.filter(i => new Date(i.createdAt) >= since);
-        const kMRR = sum(invWindow.filter(i => i.status === "paid"), "amount");
-        const kPastDue = invoices.filter(i => i.status === "past_due" || (i.status === "open" && i.dueDate && new Date(i.dueDate) < now)).length;
-
-        // Timeseries minimal
-        const base = []; const d0 = new Date(); d0.setHours(0, 0, 0, 0);
-        for (let i = days - 1; i >= 0; i--) { const d = new Date(d0); d.setDate(d0.getDate() - i); base.push({ date: `${d.getMonth() + 1}/${d.getDate()}`, value: 0 }); }
-        const add = (series, dateStr, v = 1) => {
-            const idx = series.findIndex(x => x.date === dateStr);
-            if (idx >= 0) series[idx].value += v;
-        };
-        const mrrDaily = base.map(x => ({ ...x }));
-        invWindow.filter(i => i.status === "paid").forEach(i => {
-            const d = new Date(i.createdAt); add(mrrDaily, `${d.getMonth() + 1}/${d.getDate()}`, +i.amount || 0);
+        return Promise.resolve({
+            data: {
+                success: true,
+                data: {
+                    totalUsers: users.length,
+                    totalCompanies: companies.length,
+                    totalRevenue: 125000,
+                    activeSubscriptions: companies.filter(c => c.plan?.status === 'active').length,
+                    monthlyGrowth: 12.5,
+                    recentSignups: users.slice(-5)
+                }
+            }
         });
-        const newUsersDaily = base.map(x => ({ ...x }));
-        users.forEach(u => { const d = u.createdAt && new Date(u.createdAt); if (!d) return; if (d >= since) add(newUsersDaily, `${d.getMonth() + 1}/${d.getDate()}`, 1); });
+    }
 
-        // Tables
-        const recentInvoices = [...invoices].sort((a, b) => byDateDesc(a, b, "createdAt")).slice(0, 5).map(i => {
-            const c = companies.find(c => (c._id || c.id) === (i.companyId || i.company_id));
-            return { ...i, companyName: i.companyName || c?.name || "—" };
+    // EXCHANGE RATES
+    if (path === "/superadmin/exchange-rates/history") {
+        return Promise.resolve({
+            data: {
+                success: true,
+                data: [
+                    {
+                        timestamp: new Date().toISOString(),
+                        action: 'api_update',
+                        provider: 'exchangerate',
+                        updatedBy: 'admin@watchdealerhub.com'
+                    }
+                ]
+            }
         });
-        const topCompanies = [...companies].sort((a, b) => (b.seats?.used || 0) - (a.seats?.used || 0)).slice(0, 5);
+    }
 
-        return ok({
-            kpi: { companies: kCompanies, usersActive: kUsersActive, mrr: kMRR, invoicesPastDue: kPastDue, companiesDelta: 0, usersDelta: 0, mrrDelta: 0, invoicesDelta: 0 },
-            timeseries: { mrrDaily, newUsersDaily },
-            tables: { recentInvoices, topCompanies }
+    if (path === "/superadmin/exchange-rates") {
+        return Promise.resolve({
+            data: {
+                success: true,
+                data: {
+                    baseCurrency: 'USD',
+                    rates: {
+                        USD: 1.0,
+                        GBP: 0.79,
+                        EUR: 0.85,
+                        AED: 3.67,
+                        HKD: 7.8,
+                        JPY: 110.0,
+                        CHF: 0.92,
+                        CAD: 1.25
+                    },
+                    lastUpdated: new Date().toISOString(),
+                    source: 'api_exchangerate'
+                }
+            }
         });
     }
 
@@ -170,6 +185,46 @@ function get(path, opts) {
 
 // --- POST ---
 function post(path, body = {}) {
+    // EXCHANGE RATES
+    if (path === "/superadmin/exchange-rates/update-from-api") {
+        return Promise.resolve({
+            data: {
+                success: true,
+                message: `Exchange rates updated from ${body.provider || 'exchangerate'} API`,
+                data: {
+                    baseCurrency: 'USD',
+                    rates: {
+                        USD: 1.0,
+                        GBP: 0.78,
+                        EUR: 0.84,
+                        AED: 3.68,
+                        HKD: 7.82,
+                        JPY: 111.0,
+                        CHF: 0.91,
+                        CAD: 1.26
+                    },
+                    lastUpdated: new Date().toISOString(),
+                    source: `api_${body.provider || 'exchangerate'}`
+                }
+            }
+        });
+    }
+
+    if (path === "/superadmin/exchange-rates/manual") {
+        return Promise.resolve({
+            data: {
+                success: true,
+                message: 'Exchange rates updated manually',
+                data: {
+                    baseCurrency: body.baseCurrency || 'USD',
+                    rates: body.rates,
+                    lastUpdated: new Date().toISOString(),
+                    source: 'manual'
+                }
+            }
+        });
+    }
+
     // USERS
     if (path === "/superadmin/users/invite") {
         const { name, email, role = "agent", company = "Unassigned" } = body;

@@ -11,13 +11,14 @@ import discounts from "./slices/discountsSlice"
 import features from "./slices/featuresSlice";
 import plans from "./slices/planSlice";
 import support from "./slices/SupportSlice";
+import exchangeRates from "./slices/exchangeRates";
 
 
 export default configureStore({
     reducer: {
         ui, users, companies, billing, logs,
         tickets, dashboard, modules, discounts,
-        features, plans, support,
+        features, plans, support, exchangeRates,
     },
     middleware: (gDM) => gDM({ serializableCheck: false }),
     devTools: process.env.NODE_ENV !== "production",
